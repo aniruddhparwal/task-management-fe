@@ -1,0 +1,110 @@
+.home {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100vh;
+
+  .home__right {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 4%;
+    border: 2px solid rgba(26, 59, 88, 0.24);
+    border-radius: 65px;
+    height: 60vh;
+    width: 20vw;
+    .home__right--top {
+      margin: 30px 0px;
+      span {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 26px;
+        line-height: 101.1%;
+        margin: 0px 20px 0px 0px;
+        color: rgba(26, 59, 88, 0.33);
+        cursor: pointer;
+      }
+      .active {
+        color: #1a3b58;
+      }
+      .active::first-letter {
+        font-size: 130%;
+        background-color: #329c89;
+      }
+    }
+    .home__right--bottom {
+      border-top: 2px solid rgba(64, 145, 223, 0.12);
+      padding: 30px 0px;
+      display: flex;
+      width: 80%;
+      flex-direction: column;
+      align-self: center;
+      .spanText:nth-child(1) {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 21px;
+        line-height: 101.1%;
+        color: #1a3b58;
+      }
+      .spanText:nth-child(2) {
+        font-weight: 300;
+        font-size: 10px;
+        line-height: 15px;
+        color: #999999;
+      }
+      .home__right--bottom--input {
+        border: 1px solid #cbdbea;
+        box-sizing: border-box;
+        border-radius: 8px;
+        height: 45px;
+        display: flex;
+        margin: 20px 0px;
+        padding-left: 20px;
+
+        align-items: center;
+
+        input {
+          border: none;
+          &:focus {
+            outline: none;
+          }
+          &::placeholder {
+            font-weight: 300;
+            font-size: 14px;
+            line-height: 103.38%;
+            color: #b7c0c9;
+          }
+        }
+      }
+      .emailInputError {
+        border: 1px solid #f65b2a !important;
+      }
+      .noError {
+        display: none;
+      }
+      .emailError {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 400;
+        font-size: 11px;
+        line-height: 13px;
+        color: #f65b2a;
+        margin-bottom: 20px;
+      }
+      button {
+        width: 100%;
+        background: #329c89;
+        color: #fff;
+        border: none;
+        height: 45px;
+        border-radius: 8px;
+      }
+      .home__right--bottom--checkbox {
+        margin-top: 20px;
+        input[type="checkbox"]:checked {
+          background-color: red;
+        }
+      }
+    }
+  }
+}

@@ -65,6 +65,10 @@
   }
   .project__middle {
     padding: 0px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 60px;
     span {
       font-weight: 500;
       font-size: 24px;
@@ -92,7 +96,6 @@
         justify-content: space-between;
         align-items: center;
         padding: 0px 10px 20px 10px;
-        border-bottom: 1px solid #e5e5e5;
         span {
           font-style: normal;
           font-weight: 500;
@@ -113,9 +116,55 @@
         border-radius: 7px;
         color: #329c89;
         font-size: 1.8rem;
+        cursor: pointer;
       }
+      .project__bottom--add {
+        background-color: #fff;
+        border-radius: 7px;
+        margin-top: 20px;
+        padding: 15px 20px 30px 20px;
+        display: flex;
+        flex-direction: column;
+        input {
+          border: none;
+          margin: 5px 0px;
+          &:focus {
+            outline: none;
+          }
+          &:nth-child(2)::placeholder {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 137.1%;
+            color: #a4abb3;
+          }
+          &:nth-child(2)::placeholder {
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 137.1%;
+            color: #a4abb3;
+          }
+        }
+
+        button {
+          margin-top: 20px;
+          background-color: #329c89;
+          border: none;
+          height: 40px;
+          border-radius: 7px;
+          color: #fff;
+          font-size: 1.8rem;
+          cursor: pointer;
+        }
+      }
+      .dragging-over {
+        background-color: #bac0c036;
+        border-radius: 8px;
+      }
+
       .project__bottom--col--body {
         overflow-y: scroll;
+        margin-top: 20px;
+        height: calc(100%);
         .project__bottom--col--body--item {
           background-color: #fff;
           border-radius: 7px;
@@ -134,6 +183,10 @@
             color: #6b6b6b;
             margin: 20px 0px;
           }
+        }
+        .dragging {
+          background-color: #aef1a0a1 !important;
+          transform: rotate(30deg);
         }
       }
     }

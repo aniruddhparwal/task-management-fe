@@ -56,7 +56,8 @@ function Home() {
           const options = {
             expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
           };
-          cookies.set("token", result.data.token, options);
+          document.cookie = `token=${result.data.token}, expires=${options.expires}`;
+          // cookies.set("token", result.data.token, options);
           localStorage.setItem("token", result.data.token);
         }
         navigate("/projects");
@@ -83,7 +84,8 @@ function Home() {
           const options = {
             expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
           };
-          cookies.set("token", result.data.token, options);
+          // cookies.set("token", result.data.token, options);
+          document.cookie = `token=${result.data.token}, expires=${options.expires}`;
           localStorage.setItem("token", result.data.token);
         }
         console.log("dsdsd", result);

@@ -74,7 +74,6 @@ function Project() {
       })
       .then((res) => {
         setState(res.data);
-        console.log("ssss", res);
       })
       .catch((err) => {});
   };
@@ -86,14 +85,12 @@ function Project() {
 
   const onDragEnd = ({ destination, source }) => {
     if (!destination) {
-      console.log("destination is null");
       return;
     }
     if (
       destination.index === source.index &&
       destination.droppableId === source.droppableId
     ) {
-      console.log("destination is same as source");
       return;
     }
 
@@ -146,7 +143,6 @@ function Project() {
     );
     keyvalue == "inProgress"
       ? setState((prev) => {
-          console.log("prev", prev);
           return {
             ...prev,
             inProgress: {
@@ -166,7 +162,6 @@ function Project() {
         })
       : keyvalue == "done"
       ? setState((prev) => {
-          console.log("prev", prev);
           return {
             ...prev,
             done: {
@@ -185,7 +180,6 @@ function Project() {
           };
         })
       : setState((prev) => {
-          console.log("prev", prev);
           return {
             ...prev,
             todo: {
@@ -218,8 +212,6 @@ function Project() {
   };
 
   const handleTaskDelete = (e, task, key, i) => {
-    console.log("task", task);
-    const typeTask = task.task_type;
     e.stopPropagation();
     // "http://localhost:4000/api/v1/deleteTask",
 
@@ -307,7 +299,6 @@ function Project() {
                 ) : null}
                 <Droppable droppableId={key}>
                   {(provided, snapshot) => {
-                    // console.log("area ", snapshot);
                     return (
                       <div
                         ref={provided.innerRef}
@@ -324,7 +315,6 @@ function Project() {
                               draggableId={el._id}
                             >
                               {(provided, snapshot) => {
-                                // console.log("snapshot ", snapshot);
                                 return (
                                   <div
                                     onClick={() => handleTaskSelection(el)}

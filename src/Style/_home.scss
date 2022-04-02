@@ -10,10 +10,10 @@
     padding: 30px 4%;
     border: 2px solid rgba(26, 59, 88, 0.24);
     border-radius: 65px;
-    height: 60vh;
     width: 20vw;
     .home__right--top {
       margin: 30px 0px;
+      display: flex;
       span {
         font-style: normal;
         font-weight: 500;
@@ -25,10 +25,17 @@
       }
       .active {
         color: #1a3b58;
+        hr {
+          border: 2px solid;
+          width: 25px;
+          margin-top: 10px;
+          border-radius: 5px;
+        }
       }
-      .active::first-letter {
-        font-size: 130%;
-        background-color: #329c89;
+      .inactive {
+        hr {
+          display: none;
+        }
       }
     }
     .home__right--bottom {

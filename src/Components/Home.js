@@ -2,6 +2,8 @@ import React from "react";
 import HomeSVG from "./../Assets/homeSVG.svg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ErrorOutline } from "@mui/icons-material";
+import { useEffect } from "react";
 function Home() {
   const [isLogin, setIsLogin] = React.useState(true);
   const [emailError, setEmailError] = React.useState(false);
@@ -9,6 +11,11 @@ function Home() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [fullName, setFullName] = React.useState("");
+  const emailInputRef = React.useRef(null);
+
+  useEffect(() => {
+    emailInputRef.current.focus();
+  }, []);
 
   const navigate = useNavigate();
 
@@ -42,8 +49,6 @@ function Home() {
       password: password,
     });
 
-    console.log("dd", raw);
-
     var requestOptions = {
       method: "POST",
       headers: myHeaders,
@@ -53,18 +58,11 @@ function Home() {
     };
 
     fetch(`${process.env.REACT_APP_API_URL}/api/v1/signup`, requestOptions)
-      .then((response) => console.log("res ", response))
+      .then((response) => {})
       .then((result) => {
-        // if (process.env.NODE_ENV === "production") {
-        //   const options = {
-        //     expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-        //   };
-        //   document.cookie = `token=${result.data.token}; expires=${options.expires}`;
-        //   // cookies.set("token", result.data.token, options);
-        //   localStorage.setItem("token", result.data.token);
-        // }
-        navigate("/projects");
-        console.log(result);
+        if (result.status === 200) {
+          navigate("/projects", { state: { name: fullName } });
+        }
       })
       .catch((error) => console.log("error", error));
   };
@@ -83,7 +81,6 @@ function Home() {
         { withCredentials: true }
       )
       .then((result) => {
-        console.log("dsdsd", result);
         navigate("/projects", { state: { name: result.data.user.name } });
       })
       .catch((err) => {
@@ -104,12 +101,14 @@ function Home() {
             className={`${isLogin ? "active" : "inactive"}`}
           >
             Log In
+            <hr />
           </span>
           <span
             onClick={() => setIsLogin(false)}
             className={`${!isLogin ? "active" : "inactive"}`}
           >
             Sign up
+            <hr />
           </span>
         </div>
         <div className="home__right--bottom">
@@ -125,6 +124,7 @@ function Home() {
                 <input
                   type="text"
                   value={email}
+                  ref={emailInputRef}
                   onChange={(e) => {
                     checkIsEmail(e.target.value);
                     setEmail(e.target.value);
@@ -154,6 +154,14 @@ function Home() {
                   emailError && !passwordError ? "emailError" : "noError"
                 }
               >
+                {" "}
+                <ErrorOutline
+                  style={{
+                    color: "#F65B2A",
+                    fontSize: "15px",
+                    marginRight: "5px",
+                  }}
+                />
                 Please Enter a valid Email
               </div>
               <div
@@ -161,6 +169,14 @@ function Home() {
                   emailError && passwordError ? "emailError" : "noError"
                 }
               >
+                {" "}
+                <ErrorOutline
+                  style={{
+                    color: "#F65B2A",
+                    fontSize: "15px",
+                    marginRight: "5px",
+                  }}
+                />
                 Your Email & Password do not match
               </div>
               <button
@@ -170,9 +186,6 @@ function Home() {
               >
                 Log In
               </button>
-              <div className="home__right--bottom--checkbox">
-                <input type="checkbox" /> <span>Remember me</span>
-              </div>
             </div>
           ) : (
             <div className="home__right--bottom--login">
@@ -209,6 +222,13 @@ function Home() {
                 {/* <VisibilityOff /> */}
               </div>
               <div className={emailError ? "emailError" : "noError"}>
+                <ErrorOutline
+                  style={{
+                    color: "#F65B2A",
+                    fontSize: "15px",
+                    marginRight: "5px",
+                  }}
+                />
                 Please Enter a valid Email
               </div>
               <button
@@ -218,9 +238,6 @@ function Home() {
               >
                 Sign Up
               </button>
-              <div className="home__right--bottom--checkbox">
-                <input type="checkbox" /> <span>Remember me</span>
-              </div>
             </div>
           )}
         </div>

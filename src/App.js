@@ -10,14 +10,12 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("first");
     axios
       .get(`${process.env.REACT_APP_API_URL}/api/v1/`, {
         withCredentials: true,
       })
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response.data.data.name, "response.data");
           navigate("/projects", { state: { name: response.data.data.name } });
         } else {
           navigate("/");

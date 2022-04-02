@@ -16,10 +16,11 @@ function Dashboard() {
   const navigate = useNavigate();
   const handleLogOut = () => {
     axios
-      .get("http://localhost:4000/api/v1/logout", { withCredentials: true })
+      .get(`${process.env.REACT_APP_API_URL}/api/v1/logout`, {
+        withCredentials: true,
+      })
       .then(function (response) {
         navigate("/");
-        console.log(response);
       })
       .catch(function (error) {
         console.log(error);

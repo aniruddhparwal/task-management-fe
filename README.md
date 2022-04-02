@@ -37,3 +37,7 @@ Start the server
 - [x] Add task creation date with time in record
 
 - [x] Removed Rememver me functionality as Cookie used and self destruction when not use for longer
+
+- [x] Seach with task name
+
+- [x] Responsive design

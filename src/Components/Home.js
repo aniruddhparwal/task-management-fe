@@ -52,6 +52,10 @@ function Home() {
     fetch(`${process.env.REACT_APP_API_URL}/api/v1/signup`, requestOptions)
       .then((response) => console.log("res ", response))
       .then((result) => {
+        if (process.env.NODE_ENV === "production") {
+          cookies.set("token", response.data.token, options);
+          localStorage.setItem("token", response.data.token);
+        }
         navigate("/projects");
         console.log(result);
       })

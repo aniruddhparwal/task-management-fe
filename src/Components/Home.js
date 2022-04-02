@@ -52,14 +52,14 @@ function Home() {
     fetch(`${process.env.REACT_APP_API_URL}/api/v1/signup`, requestOptions)
       .then((response) => console.log("res ", response))
       .then((result) => {
-        if (process.env.NODE_ENV === "production") {
-          const options = {
-            expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-          };
-          document.cookie = `token=${result.data.token}; expires=${options.expires}`;
-          // cookies.set("token", result.data.token, options);
-          localStorage.setItem("token", result.data.token);
-        }
+        // if (process.env.NODE_ENV === "production") {
+        //   const options = {
+        //     expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+        //   };
+        //   document.cookie = `token=${result.data.token}; expires=${options.expires}`;
+        //   // cookies.set("token", result.data.token, options);
+        //   localStorage.setItem("token", result.data.token);
+        // }
         navigate("/projects");
         console.log(result);
       })
@@ -80,14 +80,14 @@ function Home() {
         { withCredentials: true }
       )
       .then((result) => {
-        if (process.env.NODE_ENV === "production") {
-          const options = {
-            expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-          };
-          // cookies.set("token", result.data.token, options);
-          document.cookie = `token=${result.data.token}; expires=${options.expires}`;
-          localStorage.setItem("token", result.data.token);
-        }
+        // if (process.env.NODE_ENV === "production") {
+        //   const options = {
+        //     expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+        //   };
+        //   // cookies.set("token", result.data.token, options);
+        //   document.cookie = `token=${result.data.token}; expires=${options.expires}`;
+        //   localStorage.setItem("token", result.data.token);
+        // }
         console.log("dsdsd", result);
         navigate("/projects");
       })

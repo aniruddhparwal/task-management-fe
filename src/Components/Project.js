@@ -64,6 +64,7 @@ function Project() {
       items: [],
     },
   });
+  const [search, setSearch] = React.useState("");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -138,6 +139,7 @@ function Project() {
         task_name: newtaskTitle,
         task_description: newtaskDescription,
         task_type: keyvalue,
+        task_createdAt: new Date(),
       },
       { withCredentials: true }
     );
@@ -154,6 +156,7 @@ function Project() {
                   task_createdBy: username,
                   task_creater_imgURL: "https://picsum.photos/300",
                   task_description: newtaskDescription,
+                  task_createdAt: new Date(),
                 },
                 ...prev.inProgress.items,
               ],
@@ -173,6 +176,7 @@ function Project() {
                   task_createdBy: username,
                   task_creater_imgURL: "https://picsum.photos/300",
                   task_description: newtaskDescription,
+                  task_createdAt: new Date(),
                 },
                 ...prev.done.items,
               ],
@@ -191,14 +195,13 @@ function Project() {
                   task_createdBy: username,
                   task_creater_imgURL: "https://picsum.photos/300",
                   task_description: newtaskDescription,
+                  task_createdAt: new Date(),
                 },
                 ...prev.todo.items,
               ],
             },
           };
         });
-
-    // fetchAllTasks();
 
     setNewTask("");
     setNewtaskDescription("");
@@ -233,12 +236,32 @@ function Project() {
       .catch((err) => {});
   };
 
+  const datePretify = (date) => {
+    const dateObj = new Date(date);
+    const month = dateObj.getUTCMonth() + 1;
+    const day = dateObj.getUTCDate();
+    const year = dateObj.getUTCFullYear();
+    const hours = dateObj.getHours();
+    const minutes = dateObj.getMinutes();
+    const ampm = hours >= 12 ? "pm" : "am";
+    const hh = hours % 12 || 12;
+    const formattedTime = `${hh}:${minutes} ${ampm}`;
+    return `${month}/${day}/${year} ${formattedTime}`;
+  };
+
   return (
     <div className="project">
       <div className="project__top">
         <div className="project__top--search">
           <img src={SearchSVG} />
-          <input type="text" placeholder="Search" />
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+            placeholder="Search"
+          />
         </div>
         <div
           className="project__top--members"
@@ -286,11 +309,14 @@ function Project() {
                       onChange={(e) => setNewtaskTitle(e.target.value)}
                       placeholder="Give your task a title "
                     />
-                    <input
+                    <textarea
                       type="text"
                       value={newtaskDescription}
                       onChange={(e) => setNewtaskDescription(e.target.value)}
                       placeholder="Description.. "
+                      rows="5"
+                      cols="10"
+                      wrap="soft"
                     />
                     <button onClick={() => addItem(key, data.title)}>
                       Add
@@ -320,6 +346,10 @@ function Project() {
                                     onClick={() => handleTaskSelection(el)}
                                     className={`project__bottom--col--body--item  ${
                                       snapshot.isDragging ? "dragging" : ""
+                                    } ${
+                                      !el.task_name.includes(search)
+                                        ? "noMatch"
+                                        : ""
                                     }`}
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}
@@ -381,6 +411,10 @@ function Project() {
             <div className="taskDetailDrawer__body--item">
               <span>Description</span>
               <span>{selectedTask.task_description}</span>
+            </div>
+            <div className="taskDetailDrawer__body--item">
+              <span>Created On</span>
+              <span>{datePretify(Date(selectedTask.task_createdOn))}</span>
             </div>
           </div>
         </div>

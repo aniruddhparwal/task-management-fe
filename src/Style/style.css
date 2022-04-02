@@ -577,56 +577,69 @@ button:hover {
   outline: none;
 }
 
-.project .project__bottom .project__bottom--col .project__bottom--add input:nth-child(2)::-webkit-input-placeholder {
+.project .project__bottom .project__bottom--col .project__bottom--add input:nth-child(1)::-webkit-input-placeholder {
   font-weight: 500;
   font-size: 14px;
   line-height: 137.1%;
   color: #a4abb3;
 }
 
-.project .project__bottom .project__bottom--col .project__bottom--add input:nth-child(2):-ms-input-placeholder {
+.project .project__bottom .project__bottom--col .project__bottom--add input:nth-child(1):-ms-input-placeholder {
   font-weight: 500;
   font-size: 14px;
   line-height: 137.1%;
   color: #a4abb3;
 }
 
-.project .project__bottom .project__bottom--col .project__bottom--add input:nth-child(2)::-ms-input-placeholder {
+.project .project__bottom .project__bottom--col .project__bottom--add input:nth-child(1)::-ms-input-placeholder {
   font-weight: 500;
   font-size: 14px;
   line-height: 137.1%;
   color: #a4abb3;
 }
 
-.project .project__bottom .project__bottom--col .project__bottom--add input:nth-child(2)::placeholder {
+.project .project__bottom .project__bottom--col .project__bottom--add input:nth-child(1)::placeholder {
   font-weight: 500;
   font-size: 14px;
   line-height: 137.1%;
   color: #a4abb3;
 }
 
-.project .project__bottom .project__bottom--col .project__bottom--add input:nth-child(2)::-webkit-input-placeholder {
+.project .project__bottom .project__bottom--col .project__bottom--add textarea {
+  border: none;
+  margin: 5px 0px;
+  width: 100%;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+}
+
+.project .project__bottom .project__bottom--col .project__bottom--add textarea:focus {
+  outline: none;
+}
+
+.project .project__bottom .project__bottom--col .project__bottom--add textarea::-webkit-input-placeholder {
   font-weight: 400;
   font-size: 12px;
   line-height: 137.1%;
   color: #a4abb3;
 }
 
-.project .project__bottom .project__bottom--col .project__bottom--add input:nth-child(2):-ms-input-placeholder {
+.project .project__bottom .project__bottom--col .project__bottom--add textarea:-ms-input-placeholder {
   font-weight: 400;
   font-size: 12px;
   line-height: 137.1%;
   color: #a4abb3;
 }
 
-.project .project__bottom .project__bottom--col .project__bottom--add input:nth-child(2)::-ms-input-placeholder {
+.project .project__bottom .project__bottom--col .project__bottom--add textarea::-ms-input-placeholder {
   font-weight: 400;
   font-size: 12px;
   line-height: 137.1%;
   color: #a4abb3;
 }
 
-.project .project__bottom .project__bottom--col .project__bottom--add input:nth-child(2)::placeholder {
+.project .project__bottom .project__bottom--col .project__bottom--add textarea::placeholder {
   font-weight: 400;
   font-size: 12px;
   line-height: 137.1%;
@@ -676,6 +689,10 @@ button:hover {
   background-color: #aef1a0a1 !important;
   -webkit-transform: rotate(30deg);
           transform: rotate(30deg);
+}
+
+.project .project__bottom .project__bottom--col .project__bottom--col--body .noMatch {
+  display: none;
 }
 
 .taskDetailDrawer {

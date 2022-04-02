@@ -131,13 +131,22 @@
           &:focus {
             outline: none;
           }
-          &:nth-child(2)::placeholder {
+          &:nth-child(1)::placeholder {
             font-weight: 500;
             font-size: 14px;
             line-height: 137.1%;
             color: #a4abb3;
           }
-          &:nth-child(2)::placeholder {
+        }
+        textarea {
+          border: none;
+          margin: 5px 0px;
+          width: 100%;
+          height: max-content;
+          &:focus {
+            outline: none;
+          }
+          &::placeholder {
             font-weight: 400;
             font-size: 12px;
             line-height: 137.1%;
@@ -183,6 +192,9 @@
         .dragging {
           background-color: #aef1a0a1 !important;
           transform: rotate(30deg);
+        }
+        .noMatch {
+          display: none;
         }
       }
     }

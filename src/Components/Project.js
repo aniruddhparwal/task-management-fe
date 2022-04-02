@@ -67,11 +67,7 @@ function Project() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    setUsername(() => {
-      return location.state.name ? location.state.name : "";
-    });
-
+  const fetchAllTasks = async () => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/api/v1/getAllTask`, {
         withCredentials: true,
@@ -81,6 +77,11 @@ function Project() {
         console.log("ssss", res);
       })
       .catch((err) => {});
+  };
+
+  useEffect(() => {
+    setUsername(location.state.name);
+    fetchAllTasks();
   }, []);
 
   const onDragEnd = ({ destination, source }) => {
@@ -203,6 +204,8 @@ function Project() {
           };
         });
 
+    // fetchAllTasks();
+
     setNewTask("");
     setNewtaskDescription("");
     setNewtaskTitle("");
@@ -214,7 +217,9 @@ function Project() {
     setTaskDetailsDrawer(true);
   };
 
-  const handleTaskDelete = (e, task, i) => {
+  const handleTaskDelete = (e, task, key, i) => {
+    console.log("task", task);
+    const typeTask = task.task_type;
     e.stopPropagation();
     // "http://localhost:4000/api/v1/deleteTask",
 
@@ -229,7 +234,7 @@ function Project() {
       .then((res) => {
         setState((prev) => {
           prev = { ...prev };
-          prev[task.task_type].items.splice(i, 1);
+          prev[key].items.splice(i, 1);
           return prev;
         });
       })
@@ -343,7 +348,7 @@ function Project() {
                                       <Delete
                                         style={{ zIndex: "100" }}
                                         onClick={(e) =>
-                                          handleTaskDelete(e, el, i)
+                                          handleTaskDelete(e, el, key, i)
                                         }
                                         color="disabled"
                                       />

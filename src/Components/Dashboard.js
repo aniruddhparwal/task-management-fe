@@ -24,22 +24,6 @@ function Dashboard() {
       .catch(function (error) {
         console.log(error);
       });
-
-    // var myHeaders = new Headers();
-
-    // var requestOptions = {
-    //   method: "GET",
-    //   headers: myHeaders,
-    //   redirect: "follow",
-    // };
-
-    // fetch("http://localhost:4000/api/v1/logout", requestOptions)
-    //   .then((response) => response.text())
-    //   .then((result) => {
-    //     console.log(result);
-    //     navigate("/");
-    //   })
-    //   .catch((error) => console.log("error", error));
   };
 
   return (

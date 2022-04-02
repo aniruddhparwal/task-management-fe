@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 function Home() {
   const [isLogin, setIsLogin] = React.useState(true);
   const [emailError, setEmailError] = React.useState(false);
+  const [passwordError, setPasswordError] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [fullName, setFullName] = React.useState("");
@@ -14,6 +15,7 @@ function Home() {
   let checkIsEmail = (email) => {
     if (email.length === 0) {
       setEmailError(false);
+      setPasswordError(false);
       return;
     }
     let re =
@@ -21,6 +23,7 @@ function Home() {
 
     if (re.test(email)) {
       setEmailError(false);
+      setPasswordError(false);
     } else {
       setEmailError(true);
     }
@@ -80,18 +83,13 @@ function Home() {
         { withCredentials: true }
       )
       .then((result) => {
-        // if (process.env.NODE_ENV === "production") {
-        //   const options = {
-        //     expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-        //   };
-        //   // cookies.set("token", result.data.token, options);
-        //   document.cookie = `token=${result.data.token}; expires=${options.expires}`;
-        //   localStorage.setItem("token", result.data.token);
-        // }
         console.log("dsdsd", result);
-        navigate("/projects");
+        navigate("/projects", { state: { name: result.data.user.name } });
       })
-      .catch((err) => {});
+      .catch((err) => {
+        setEmailError(true);
+        setPasswordError(true);
+      });
   };
 
   return (
@@ -134,17 +132,36 @@ function Home() {
                   placeholder="Email"
                 />
               </div>
-              <div className="home__right--bottom--input">
+              <div
+                className={`home__right--bottom--input ${
+                  passwordError ? "emailInputError" : ""
+                }`}
+              >
                 <input
                   type="password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => {
+                    setEmailError(false);
+                    setPasswordError(false);
+                    setPassword(e.target.value);
+                  }}
                   placeholder="Password"
                 />
                 {/* <VisibilityOff /> */}
               </div>
-              <div className={emailError ? "emailError" : "noError"}>
+              <div
+                className={
+                  emailError && !passwordError ? "emailError" : "noError"
+                }
+              >
                 Please Enter a valid Email
+              </div>
+              <div
+                className={
+                  emailError && passwordError ? "emailError" : "noError"
+                }
+              >
+                Your Email & Password do not match
               </div>
               <button
                 onClick={() => {

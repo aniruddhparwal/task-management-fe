@@ -194,6 +194,49 @@ button:hover {
   background-color: red;
 }
 
+@media only screen and (max-width: 768px) {
+  .home .home__left {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .home .home__left img {
+    -o-object-fit: contain;
+       object-fit: contain;
+  }
+  .home .home__right {
+    width: auto !important;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .home {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .home .home__left {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .home .home__left img {
+    -o-object-fit: contain;
+       object-fit: contain;
+    width: 50%;
+  }
+  .home .home__right {
+    width: auto !important;
+  }
+}
+
 .dashboard {
   display: -webkit-box;
   display: -ms-flexbox;

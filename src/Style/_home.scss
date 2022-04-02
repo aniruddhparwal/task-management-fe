@@ -115,3 +115,35 @@
     }
   }
 }
+
+@media #{$media-tablet} {
+  .home {
+    .home__left {
+      display: flex;
+      justify-content: center;
+      img {
+        object-fit: contain;
+      }
+    }
+    .home__right {
+      width: auto !important;
+    }
+  }
+}
+
+@media #{$media-mobile} {
+  .home {
+    flex-direction: column;
+    .home__left {
+      display: flex;
+      justify-content: center;
+      img {
+        object-fit: contain;
+        width: 50%;
+      }
+    }
+    .home__right {
+      width: auto !important;
+    }
+  }
+}

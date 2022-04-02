@@ -34,29 +34,38 @@ function Dashboard() {
         <div className="dashboard__left--middle">
           <div className="dashboard__left--middle--option">
             <img src={OverviewSVG} />
-            Overview
+            <div className="dashboard__left--middle--option--text">
+              Overview
+            </div>
           </div>
           <div className="dashboard__left--middle--option">
             <img src={StatsSVG} />
-            Stats
+            <div className="dashboard__left--middle--option--text"> Stats</div>
           </div>
           <div className="dashboard__left--middle--option active">
             <img src={ProjectSVG} />
-            Project
+            <div className="dashboard__left--middle--option--text">
+              {" "}
+              Project
+            </div>
           </div>
           <div className="dashboard__left--middle--option">
             <img src={ChatSVG} />
-            Chat
+            <div className="dashboard__left--middle--option--text"> Chat</div>
           </div>
           <div className="dashboard__left--middle--option">
             <img src={CalendarSVG} />
-            Calendar
+            <div className="dashboard__left--middle--option--text">
+              Calendar
+            </div>
           </div>
         </div>
         <div className="dashboard__left--bottom">
           <div className="dashboard__left--bottom--option">
             <img src={SettingSVG} />
-            Settings
+            <div className="dashboard__left--middle--option--text">
+              Settings
+            </div>
           </div>
           <div
             className="dashboard__left--bottom--option"
@@ -66,7 +75,7 @@ function Dashboard() {
             style={{ cursor: "pointer" }}
           >
             <img src={LogoutSVG} />
-            Log Out
+            <div className="dashboard__left--middle--option--text">Log Out</div>
           </div>
         </div>
       </div>

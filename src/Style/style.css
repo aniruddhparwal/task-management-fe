@@ -198,6 +198,7 @@ button:hover {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  height: 100vh;
 }
 
 .dashboard .dashboard__left {
@@ -259,6 +260,7 @@ button:hover {
 
 .dashboard .dashboard__right {
   width: 100%;
+  overflow: auto;
 }
 
 .logoutModal {
@@ -338,6 +340,36 @@ button:hover {
   line-height: 101.1%;
   letter-spacing: 0.05em;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+  .dashboard__left--middle--option--text {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .dashboard__left--top {
+    display: none;
+  }
+  .dashboard__right {
+    width: 80% !important;
+  }
+  .dashboard__right .project .project__top {
+    -ms-flex-wrap: wrap-reverse;
+        flex-wrap: wrap-reverse;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .dashboard__right .project .project__middle {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .dashboard__right .project .project__bottom {
+    overflow: scroll;
+  }
 }
 
 .project {
@@ -841,5 +873,48 @@ button:hover {
   line-height: 101.1%;
   letter-spacing: 0.05em;
   color: rgba(33, 33, 33, 0.58);
+}
+
+.logoutModal__content--body button:nth-child(2) {
+  background-color: #9a9a9a !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .project .project__top {
+    margin-bottom: 0px;
+  }
+  .project .project__top .project__top--search {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -ms-flex-item-align: center;
+        align-self: center;
+    margin-top: 20px;
+  }
+  .project .project__top .project__top--search input {
+    width: 50%;
+  }
+  .memberModal__content {
+    width: 60% !important;
+  }
+  .logoutModal__content {
+    width: 60% !important;
+  }
+  .logoutModal__content--body {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .logoutModal__content--body button {
+    width: auto !important;
+    margin: 10px;
+  }
 }
 /*# sourceMappingURL=style.css.map */

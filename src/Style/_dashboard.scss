@@ -42,3 +42,56 @@
     width: 100%;
   }
 }
+
+.logoutModal {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .logoutModal__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    background: #ffffff;
+    box-shadow: 0px 0px 28px rgba(72, 174, 174, 0.07);
+    border-radius: 22px;
+    padding: 30px;
+    .logoutModal__content--header {
+      span {
+        font-size: 18px;
+        line-height: 101.1%;
+        letter-spacing: 0.05em;
+        color: #212121;
+        display: flex;
+        justify-content: space-between;
+      }
+      hr {
+        margin: 10px 0px;
+        border: 1.5px solid #329c89;
+      }
+    }
+    .logoutModal__content--body {
+      margin-top: 40px;
+      overflow-y: scroll;
+      height: 80%;
+      display: flex;
+      width: 100%;
+      justify-content: space-around;
+      button {
+        width: 20%;
+        height: 50px;
+        border-radius: 25px;
+        border: none;
+        background: #329c89;
+        color: #ffffff;
+        font-size: 18px;
+        line-height: 101.1%;
+        letter-spacing: 0.05em;
+        cursor: pointer;
+      }
+    }
+  }
+}

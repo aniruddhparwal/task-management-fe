@@ -2,22 +2,17 @@ import { Close } from "@mui/icons-material";
 import { Drawer } from "@mui/material";
 import { Modal } from "@mui/material";
 import { Avatar } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import SearchSVG from "./../Assets/VectorSearchIcon.svg";
 import { v4 } from "uuid";
 import _ from "lodash";
 import { Draggable } from "react-beautiful-dnd";
 import { Droppable } from "react-beautiful-dnd";
 import { DragDropContext } from "react-beautiful-dnd";
-
-const item = {
-  id: v4(),
-  name: "Clean the house",
-  createdBy: "John Doe",
-  imgURL: "https://picsum.photos/300",
-  description:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-};
+import axios from "axios";
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Delete } from "@mui/icons-material";
 
 function Project() {
   const [newTask, setNewTask] = React.useState("");
@@ -48,6 +43,7 @@ function Project() {
       email: "example@exam.com",
     },
   ];
+  const [username, setUsername] = React.useState("");
   const [addNew, setAddNew] = React.useState("");
   const [taskDetailsDrawer, setTaskDetailsDrawer] = React.useState(false);
   const [memberModal, setMemberModal] = React.useState(false);
@@ -61,17 +57,33 @@ function Project() {
     },
     inProgress: {
       title: "In-progress",
-      items: [item],
+      items: [],
     },
     done: {
       title: "Done",
       items: [],
     },
   });
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    setUsername(() => {
+      return location.state.name ? location.state.name : "";
+    });
+
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/api/v1/getAllTask`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setState(res.data);
+        console.log("ssss", res);
+      })
+      .catch((err) => {});
+  }, []);
 
   const onDragEnd = ({ destination, source }) => {
-    console.log("from", source);
-    console.log("to", destination);
     if (!destination) {
       console.log("destination is null");
       return;
@@ -96,11 +108,41 @@ function Project() {
       );
       return prev;
     });
+
+    const idList = [];
+    for (let i = 0; i < state[destination.droppableId].items.length; i++) {
+      idList.push(state[destination.droppableId].items[i]._id);
+    }
+
+    axios
+      .post(
+        `${process.env.REACT_APP_API_URL}/api/v1/updateAllTask`,
+        {
+          task_idList: idList,
+          task_type: destination.droppableId,
+        },
+        { withCredentials: true }
+      )
+      .then((res) => {})
+      .catch((err) => {});
   };
 
-  const addItem = (keyvalue, title) => {
-    console.log("keyvalue", keyvalue);
-
+  const addItem = async (keyvalue, title) => {
+    if (newtaskTitle === "" || newtaskDescription === "") {
+      alert("Please fill all the fields");
+      return;
+    }
+    const result = await axios.post(
+      `${process.env.REACT_APP_API_URL}/api/v1/addTask`,
+      {
+        task_createdBy: username,
+        task_creater_imgURL: "https://picsum.photos/300",
+        task_name: newtaskTitle,
+        task_description: newtaskDescription,
+        task_type: keyvalue,
+      },
+      { withCredentials: true }
+    );
     keyvalue == "inProgress"
       ? setState((prev) => {
           console.log("prev", prev);
@@ -110,11 +152,11 @@ function Project() {
               title: title,
               items: [
                 {
-                  id: v4(),
-                  name: newtaskTitle,
-                  createdBy: "John Doe",
-                  imgURL: "https://picsum.photos/300",
-                  description: newtaskDescription,
+                  _id: result.data._id,
+                  task_name: newtaskTitle,
+                  task_createdBy: username,
+                  task_creater_imgURL: "https://picsum.photos/300",
+                  task_description: newtaskDescription,
                 },
                 ...prev.inProgress.items,
               ],
@@ -130,11 +172,11 @@ function Project() {
               title: title,
               items: [
                 {
-                  id: v4(),
-                  name: newtaskTitle,
-                  createdBy: "John Doe",
-                  imgURL: "https://picsum.photos/300",
-                  description: newtaskDescription,
+                  _id: result.data._id,
+                  task_name: newtaskTitle,
+                  task_createdBy: username,
+                  task_creater_imgURL: "https://picsum.photos/300",
+                  task_description: newtaskDescription,
                 },
                 ...prev.done.items,
               ],
@@ -149,17 +191,18 @@ function Project() {
               title: title,
               items: [
                 {
-                  id: v4(),
-                  name: newtaskTitle,
-                  createdBy: "John Doe",
-                  imgURL: "https://picsum.photos/300",
-                  description: newtaskDescription,
+                  _id: result.data._id,
+                  task_name: newtaskTitle,
+                  task_createdBy: username,
+                  task_creater_imgURL: "https://picsum.photos/300",
+                  task_description: newtaskDescription,
                 },
                 ...prev.todo.items,
               ],
             },
           };
         });
+
     setNewTask("");
     setNewtaskDescription("");
     setNewtaskTitle("");
@@ -167,9 +210,30 @@ function Project() {
   };
 
   const handleTaskSelection = (task) => {
-    console.log(task);
     setSelectedTask(task);
     setTaskDetailsDrawer(true);
+  };
+
+  const handleTaskDelete = (e, task, i) => {
+    e.stopPropagation();
+    // "http://localhost:4000/api/v1/deleteTask",
+
+    axios
+      .post(
+        `${process.env.REACT_APP_API_URL}/api/v1/deleteTask`,
+        {
+          task_id: task._id,
+        },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        setState((prev) => {
+          prev = { ...prev };
+          prev[task.task_type].items.splice(i, 1);
+          return prev;
+        });
+      })
+      .catch((err) => {});
   };
 
   return (
@@ -190,7 +254,7 @@ function Project() {
           ))}
         </div>
         <div className="project__top--profile">
-          <span>Hi Saundarya</span>
+          <span>Hi {username}</span>
           <Avatar />
         </div>
       </div>
@@ -200,7 +264,6 @@ function Project() {
       <div className="project__bottom">
         <DragDropContext onDragEnd={onDragEnd}>
           {_.map(state, (data, key) => {
-            console.log("èeee", key, data);
             return (
               <div key={key} className="project__bottom--col">
                 <div className="project__bottom--col--header">
@@ -239,7 +302,7 @@ function Project() {
                 ) : null}
                 <Droppable droppableId={key}>
                   {(provided, snapshot) => {
-                    console.log("area ", snapshot);
+                    // console.log("area ", snapshot);
                     return (
                       <div
                         ref={provided.innerRef}
@@ -251,12 +314,12 @@ function Project() {
                         {data.items.map((el, i) => {
                           return (
                             <Draggable
-                              key={el.id}
+                              key={el._id}
                               index={i}
-                              draggableId={el.id}
+                              draggableId={el._id}
                             >
                               {(provided, snapshot) => {
-                                console.log("snapshot ", snapshot);
+                                // console.log("snapshot ", snapshot);
                                 return (
                                   <div
                                     onClick={() => handleTaskSelection(el)}
@@ -267,9 +330,24 @@ function Project() {
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
                                   >
-                                    <span> {el.name}</span>
-                                    <p>{el.description} </p>
-                                    <Avatar src={el.imgURL} />
+                                    <span> {el.task_name}</span>
+                                    <p>{el.task_description} </p>
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                        alignContent: "center",
+                                      }}
+                                    >
+                                      <Avatar src={el.task_creater_imgURL} />
+                                      <Delete
+                                        style={{ zIndex: "100" }}
+                                        onClick={(e) =>
+                                          handleTaskDelete(e, el, i)
+                                        }
+                                        color="disabled"
+                                      />
+                                    </div>
                                   </div>
                                 );
                               }}
@@ -285,68 +363,6 @@ function Project() {
             );
           })}
         </DragDropContext>
-
-        {/* <div className="project__bottom--col">
-          <div className="project__bottom--col--header">
-            <span>To do</span>
-            <div>2</div>
-          </div>
-          <button>+</button>
-          <div className="project__bottom--col--body">
-            <div className="project__bottom--col--body--item">
-              <span> Task Name</span>
-              <p>losdfsfs sfsf sfs fsf fs fs </p>
-              <Avatar />
-            </div>
-            <div className="project__bottom--col--body--item">
-              <span> Task Name</span>
-              <p>losdfsfs sfsf sfs fsf fs fs </p>
-              <Avatar />
-            </div>
-            <div className="project__bottom--col--body--item">
-              <span> Task Name</span>
-              <p>losdfsfs sfsf sfs fsf fs fs </p>
-              <Avatar />
-            </div>
-            <div className="project__bottom--col--body--item">
-              <span> Task Name</span>
-              <p>losdfsfs sfsf sfs fsf fs fs </p>
-              <Avatar />
-            </div>
-          </div>
-        </div>
-        <div className="project__bottom--col">
-          <div className="project__bottom--col--header">
-            <span>To do</span>
-            <div>2</div>
-          </div>
-          <button>+</button>
-          <div className="project__bottom--col--body">
-            <div
-              className="project__bottom--col--body--item"
-              onClick={() => setTaskDetailsDrawer(true)}
-            >
-              <span> Task Name</span>
-              <p>losdfsfs sfsf sfs fsf fs fs </p>
-              <Avatar />
-            </div>
-            <div className="project__bottom--col--body--item">
-              <span> Task Name</span>
-              <p>losdfsfs sfsf sfs fsf fs fs </p>
-              <Avatar />
-            </div>
-            <div className="project__bottom--col--body--item">
-              <span> Task Name</span>
-              <p>losdfsfs sfsf sfs fsf fs fs </p>
-              <Avatar />
-            </div>
-            <div className="project__bottom--col--body--item">
-              <span> Task Name</span>
-              <p>losdfsfs sfsf sfs fsf fs fs </p>
-              <Avatar />
-            </div>
-          </div>
-        </div> */}
       </div>
 
       <Drawer
@@ -356,20 +372,20 @@ function Project() {
       >
         <div className="taskDetailDrawer">
           <div className="taskDetailDrawer__header">
-            <span>{selectedTask.name}</span>
+            <span>{selectedTask.task_name}</span>
             <hr />
           </div>
           <div className="taskDetailDrawer__body">
             <div className="taskDetailDrawer__body--item">
               <span>Created By</span>
               <span>
-                <Avatar src={selectedTask.imgURL} />
-                <span>{selectedTask.createdBy}</span>
+                <Avatar src={selectedTask.task_creater_imgURL} />
+                <span>{selectedTask.task_createdBy}</span>
               </span>
             </div>
             <div className="taskDetailDrawer__body--item">
               <span>Description</span>
-              <span>{selectedTask.description}</span>
+              <span>{selectedTask.task_description}</span>
             </div>
           </div>
         </div>

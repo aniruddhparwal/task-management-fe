@@ -80,7 +80,7 @@
   }
   .project__bottom {
     display: flex;
-    padding: 30px 30px;
+    padding: 20px 30px 0px 30px;
     .project__bottom--col {
       display: flex;
       flex-direction: column;
@@ -156,13 +156,9 @@
           cursor: pointer;
         }
       }
-      .dragging-over {
-        background-color: #bac0c036;
-        border-radius: 8px;
-      }
 
       .project__bottom--col--body {
-        overflow-y: scroll;
+        overflow-y: auto;
         margin-top: 20px;
         height: calc(100%);
         .project__bottom--col--body--item {
@@ -270,7 +266,7 @@
     }
     .memberModal__content--body {
       margin-top: 40px;
-      overflow-y: scroll;
+      overflow-y: auto;
       height: 80%;
       .memberModal__content--body--item {
         display: flex;

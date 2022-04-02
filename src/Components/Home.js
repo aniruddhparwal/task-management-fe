@@ -1,11 +1,15 @@
 import React from "react";
 import HomeSVG from "./../Assets/homeSVG.svg";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 function Home() {
   const [isLogin, setIsLogin] = React.useState(true);
   const [emailError, setEmailError] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [fullName, setFullName] = React.useState("");
+
+  const navigate = useNavigate();
 
   let checkIsEmail = (email) => {
     if (email.length === 0) {
@@ -20,6 +24,58 @@ function Home() {
     } else {
       setEmailError(true);
     }
+  };
+
+  const handleSignup = () => {
+    if (emailError) {
+      return;
+    }
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      name: fullName,
+      email: email,
+      password: password,
+    });
+
+    console.log("dd", raw);
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      credentials: "include",
+      redirect: "follow",
+    };
+
+    fetch(`${process.env.REACT_APP_API_URL}/api/v1/signup`, requestOptions)
+      .then((response) => console.log("res ", response))
+      .then((result) => {
+        navigate("/projects");
+        console.log(result);
+      })
+      .catch((error) => console.log("error", error));
+  };
+
+  const handleLogin = () => {
+    if (emailError || password.length === 0 || email.length === 0) {
+      return;
+    }
+    axios
+      .post(
+        `${process.env.REACT_APP_API_URL}/api/v1/login`,
+        {
+          email: email,
+          password: password,
+        },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        console.log("dsdsd", res);
+        navigate("/projects");
+      })
+      .catch((err) => {});
   };
 
   return (
@@ -74,7 +130,13 @@ function Home() {
               <div className={emailError ? "emailError" : "noError"}>
                 Please Enter a valid Email
               </div>
-              <button>Log In</button>
+              <button
+                onClick={() => {
+                  handleLogin();
+                }}
+              >
+                Log In
+              </button>
               <div className="home__right--bottom--checkbox">
                 <input type="checkbox" /> <span>Remember me</span>
               </div>
@@ -116,7 +178,13 @@ function Home() {
               <div className={emailError ? "emailError" : "noError"}>
                 Please Enter a valid Email
               </div>
-              <button>Log In</button>
+              <button
+                onClick={() => {
+                  handleSignup();
+                }}
+              >
+                Sign Up
+              </button>
               <div className="home__right--bottom--checkbox">
                 <input type="checkbox" /> <span>Remember me</span>
               </div>

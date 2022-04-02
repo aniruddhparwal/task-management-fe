@@ -245,6 +245,85 @@
   width: 100%;
 }
 
+.logoutModal {
+  width: 100vw;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.logoutModal .logoutModal__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 30%;
+  background: #ffffff;
+  -webkit-box-shadow: 0px 0px 28px rgba(72, 174, 174, 0.07);
+          box-shadow: 0px 0px 28px rgba(72, 174, 174, 0.07);
+  border-radius: 22px;
+  padding: 30px;
+}
+
+.logoutModal .logoutModal__content .logoutModal__content--header span {
+  font-size: 18px;
+  line-height: 101.1%;
+  letter-spacing: 0.05em;
+  color: #212121;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.logoutModal .logoutModal__content .logoutModal__content--header hr {
+  margin: 10px 0px;
+  border: 1.5px solid #329c89;
+}
+
+.logoutModal .logoutModal__content .logoutModal__content--body {
+  margin-top: 40px;
+  overflow-y: scroll;
+  height: 80%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.logoutModal .logoutModal__content .logoutModal__content--body button {
+  width: 20%;
+  height: 50px;
+  border-radius: 25px;
+  border: none;
+  background: #329c89;
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 101.1%;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+}
+
 .project {
   padding-top: 30px;
   display: -webkit-box;
@@ -399,7 +478,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding: 30px 30px;
+  padding: 20px 30px 0px 30px;
 }
 
 .project .project__bottom .project__bottom--col {
@@ -549,13 +628,8 @@
   cursor: pointer;
 }
 
-.project .project__bottom .project__bottom--col .dragging-over {
-  background-color: #bac0c036;
-  border-radius: 8px;
-}
-
 .project .project__bottom .project__bottom--col .project__bottom--col--body {
-  overflow-y: scroll;
+  overflow-y: auto;
   margin-top: 20px;
   height: calc(100%);
 }
@@ -695,7 +769,7 @@
 
 .memberModal .memberModal__content .memberModal__content--body {
   margin-top: 40px;
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 80%;
 }
 
